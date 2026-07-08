@@ -689,6 +689,11 @@
   @media(max-width: 768px) {
     .inner { padding: 0 18px; }
     section { padding: 70px 0; }
+
+    /* Skills grid becomes stacked on mobile */
+    #skills .reveal-left > div:first-child {
+      grid-template-columns: 1fr !important;
+    }
     .project-card { grid-template-columns: 1fr; }
     .project-code-pane { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 24px !important; }
     .project-info-pane { padding: 32px 24px !important; }
