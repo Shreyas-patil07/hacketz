@@ -5,13 +5,12 @@
 <p align="center">
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
   <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind" />
   <img src="https://img.shields.io/badge/Made%20for-Performance-success?style=for-the-badge" alt="Performance" />
 </p>
 
 A next-generation, premium personal portfolio built with React and Vite. Designed to leave a lasting impression with buttery-smooth micro-interactions, hardware-accelerated animations, and a sleek, modern glassmorphism aesthetic.
 
-[**Live Demo**](#) <!-- Add your live demo link here -->
+### 🌐 [View Live Demo](https://hacketz-about.vercel.app/)
 
 </div>
 
@@ -21,8 +20,9 @@ A next-generation, premium personal portfolio built with React and Vite. Designe
 
 - **Hardware-Accelerated UI:** Fully optimized CSS transforms utilizing `will-change` properties for 60fps+ rendering without layout thrashing.
 - **Custom Cursor Engine:** Highly responsive dual-cursor design with JS-based lerp tracking, fully decoupled from CSS transitions to eliminate lag.
+- **Bento Box Grid:** A premium, masonry-style layout for the tech stack section, utilizing CSS Columns for perfect, gap-free responsive design.
 - **Scroll Progress Tracking:** A custom, ultra-smooth scrollbar built seamlessly into the global `requestAnimationFrame` loop.
-- **Glassmorphism Design:** Beautiful frosted-glass UI components using Tailwind CSS and custom backdrop filters.
+- **Glassmorphism Design:** Beautiful frosted-glass UI components with custom backdrop filters and ambient lighting effects.
 - **Scroll-Reveal Animations:** IntersectionObserver-based `.reveal` components that elegantly fade and slide into view.
 - **Magnetic Buttons:** Interactive CTA buttons that subtly follow the user's cursor for a premium, tactile feel.
 - **Interactive Easter Eggs:** A hidden interactive terminal and an immersive audio-visual entrance experience.
@@ -30,7 +30,7 @@ A next-generation, premium personal portfolio built with React and Vite. Designe
 ## 🚀 Tech Stack
 
 - **Framework:** [React 19](https://react.dev/) + [Vite](https://vitejs.dev/)
-- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) + Custom CSS for complex animations
+- **Styling:** Custom CSS with advanced selectors, keyframe animations, and masonry layouts.
 - **Linting:** [Oxlint](https://oxc.rs/docs/guide/usage/linter)
 
 ## ⚡ Performance Optimizations
@@ -44,8 +44,8 @@ To ensure a "production-grade" feel, this portfolio is highly optimized:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/portfolio.git
-   cd portfolio
+   git clone https://github.com/Shreyas-patil07/hacketz.git
+   cd hacketz
    ```
 
 2. **Install dependencies:**
@@ -67,7 +67,7 @@ To ensure a "production-grade" feel, this portfolio is highly optimized:
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](#) if you want to contribute.
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/Shreyas-patil07/hacketz/issues) if you want to contribute.
 
 ## 📝 License
 
