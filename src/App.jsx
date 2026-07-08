@@ -15,6 +15,8 @@ import mascot from './assets/Github_01.png';
 
 function App() {
   const [hasEntered, setHasEntered] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const audioRef = React.useRef(null);
 
   useEffect(() => {
     const cursor = document.getElementById('cursor');
@@ -119,6 +121,7 @@ function App() {
     const audio = new Audio(bgMusic);
     audio.volume = 0.3;
     audio.loop = true;
+    audioRef.current = audio;
 
     let isAttempting = false;
     const startAudio = () => {
@@ -139,13 +142,10 @@ function App() {
         document.removeEventListener('mousemove', startAudio, { capture: true });
         document.removeEventListener('scroll', startAudio, { capture: true });
       }).catch(e => {
-        // Browser blocked it (mousemove/scroll aren't valid gestures). 
-        // Reset flag to try again on the next event (like a click).
         isAttempting = false;
       });
     };
 
-    // Use capture phase so it triggers even if child elements stop propagation
     document.addEventListener('click', startAudio, { capture: true });
     document.addEventListener('touchstart', startAudio, { capture: true });
     document.addEventListener('keydown', startAudio, { capture: true });
@@ -162,6 +162,14 @@ function App() {
       audio.src = '';
     };
   }, []);
+
+  // Sync mute state to audio element
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.muted = isMuted;
+    }
+  }, [isMuted]);
+
 
   // Cursor Visibility Logic
   useEffect(() => {
@@ -257,6 +265,59 @@ function App() {
       <Footer />
       <TerminalEasterEgg />
       <Peeker />
+
+      {/* Mute / Unmute Button */}
+      {hasEntered && (
+        <button
+          onClick={() => setIsMuted(m => !m)}
+          title={isMuted ? 'Unmute music' : 'Mute music'}
+          style={{
+            position: 'fixed',
+            bottom: '24px',
+            right: '24px',
+            zIndex: 99990,
+            width: '44px',
+            height: '44px',
+            borderRadius: '50%',
+            background: 'rgba(13,17,23,0.75)',
+            border: '1px solid rgba(255,255,255,0.1)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            transition: 'border-color 0.2s, box-shadow 0.2s, transform 0.2s',
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.borderColor = 'rgba(124,58,237,0.6)';
+            e.currentTarget.style.boxShadow = '0 0 20px rgba(124,58,237,0.35)';
+            e.currentTarget.style.transform = 'scale(1.1)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+            e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.4)';
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
+        >
+          {isMuted ? (
+            // Muted icon (speaker with X)
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+              <line x1="23" y1="9" x2="17" y2="15" />
+              <line x1="17" y1="9" x2="23" y2="15" />
+            </svg>
+          ) : (
+            // Unmuted icon (speaker with waves)
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d2bbff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+            </svg>
+          )}
+        </button>
+      )}
     </>
   );
 }
