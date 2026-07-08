@@ -163,6 +163,18 @@ function App() {
     };
   }, []);
 
+  // Cursor Visibility Logic
+  useEffect(() => {
+    if (hasEntered) {
+      document.body.classList.add('custom-cursor');
+    } else {
+      document.body.classList.remove('custom-cursor');
+    }
+    
+    // Cleanup on unmount just in case
+    return () => document.body.classList.remove('custom-cursor');
+  }, [hasEntered]);
+
   return (
     <>
       {/* Entrance Overlay Shutter */}
@@ -177,9 +189,25 @@ function App() {
           background: 'radial-gradient(circle at center, rgba(124,58,237,0.15) 0%, rgba(7,11,20,0.98) 100%)',
           backdropFilter: 'blur(40px)',
           WebkitBackdropFilter: 'blur(40px)',
-          willChange: 'transform'
+          willChange: 'transform',
+          overflow: 'hidden'
         }}
-      />
+      >
+        {/* High-Speed Chasing Particles (Untouchable Activity) */}
+        {!hasEntered && (
+          <div className="particle-container">
+            {/* Pair 1: Blue → Orange */}
+            <div className="particle target-1" />
+            <div className="particle chaser-1" />
+            {/* Pair 2: Purple → Green */}
+            <div className="particle target-2" />
+            <div className="particle chaser-2" />
+            {/* Pair 3: Pink → Yellow */}
+            <div className="particle target-3" />
+            <div className="particle chaser-3" />
+          </div>
+        )}
+      </div>
 
       {/* Entrance Mascot */}
       <div 
@@ -195,25 +223,27 @@ function App() {
           pointerEvents: hasEntered ? 'none' : 'auto'
         }}
       >
-        <img 
-          src={mascot} 
-          alt="Click to enter" 
-          style={{ 
-            height: '35vh', 
-            maxHeight: '350px',
-            minHeight: '200px',
-            filter: 'drop-shadow(0 -10px 25px rgba(124,58,237,0.5))',
-            transformOrigin: 'bottom center',
-            transition: 'transform 0.3s ease',
-            willChange: 'transform'
-          }} 
-          onMouseOver={(e) => { if(!hasEntered) e.currentTarget.style.transform = 'scale(1.08)'; }}
-          onMouseOut={(e) => { if(!hasEntered) e.currentTarget.style.transform = 'scale(1)'; }}
-        />
+        <div className={hasEntered ? '' : 'impatient-peeker'}>
+          <img 
+            src={mascot} 
+            alt="Click to enter" 
+            style={{ 
+              height: '35vh', 
+              maxHeight: '350px',
+              minHeight: '200px',
+              filter: 'drop-shadow(0 -10px 25px rgba(124,58,237,0.5))',
+              transformOrigin: 'bottom center',
+              transition: 'transform 0.3s ease',
+              willChange: 'transform'
+            }} 
+            onMouseOver={(e) => { if(!hasEntered) e.currentTarget.style.transform = 'scale(1.08)'; }}
+            onMouseOut={(e) => { if(!hasEntered) e.currentTarget.style.transform = 'scale(1)'; }}
+          />
+        </div>
       </div>
 
-      <div id="cursor" />
-      <div id="cursor-ring" />
+      <div id="cursor" style={{ opacity: hasEntered ? 1 : 0, transition: 'opacity 0.3s ease' }} />
+      <div id="cursor-ring" style={{ opacity: hasEntered ? 1 : 0, transition: 'opacity 0.3s ease' }} />
       <div id="sb" />
 
       <Backgrounds />
