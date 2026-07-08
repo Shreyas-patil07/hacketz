@@ -202,7 +202,7 @@ const Skills = () => {
         {/* Bento Grid */}
         <div className="bento-grid">
           {categories.map((cat, i) => (
-            <div key={cat.id} className={`bento-card reveal-left ${cat.spanClasses}`}>
+            <div key={cat.id} className="bento-card reveal-left">
               
               {/* Category Header */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
