@@ -7,12 +7,12 @@ const categories = [
     icon: '{ }',
     accent: '#7c3aed',
     items: [
-      { name: 'HTML', pct: 90 },
-      { name: 'Python', pct: 88 },
-      { name: 'CSS', pct: 82 },
-      { name: 'SQL', pct: 70 },
-      { name: 'Dart', pct: 65 },
-      { name: 'C++', pct: 55 },
+      { name: 'Python', pct: 90 },
+      { name: 'Dart', pct: 80 },
+      { name: 'SQL', pct: 75 },
+      { name: 'HTML', pct: 70 },
+      { name: 'C++', pct: 65 },
+      { name: 'CSS', pct: 60 },
     ],
   },
   {
@@ -21,9 +21,9 @@ const categories = [
     icon: '◆',
     accent: '#6366f1',
     items: [
+      { name: 'React', pct: 90 },
       { name: 'Vite', pct: 85 },
-      { name: 'React', pct: 78 },
-      { name: 'Flutter', pct: 70 },
+      { name: 'Flutter', pct: 80 },
     ],
   },
   {
@@ -32,9 +32,9 @@ const categories = [
     icon: '⚙',
     accent: '#8b5cf6',
     items: [
-      { name: 'Flask', pct: 88 },
-      { name: 'REST API', pct: 88 },
-      { name: 'FastAPI', pct: 85 },
+      { name: 'FastAPI', pct: 90 },
+      { name: 'Flask', pct: 85 },
+      { name: 'REST API', pct: 80 },
     ],
   },
   {
@@ -43,11 +43,11 @@ const categories = [
     icon: '◎',
     accent: '#a855f7',
     items: [
-      { name: 'Firebase Firestore', pct: 85 },
-      { name: 'Supabase', pct: 82 },
-      { name: 'SQLite', pct: 78 },
-      { name: 'PostgreSQL', pct: 72 },
-      { name: 'MongoDB', pct: 60 },
+      { name: 'Firebase Firestore', pct: 90 },
+      { name: 'Supabase', pct: 85 },
+      { name: 'SQLite', pct: 80 },
+      { name: 'PostgreSQL', pct: 75 },
+      { name: 'MongoDB', pct: 70 },
     ],
   },
   {
@@ -56,9 +56,9 @@ const categories = [
     icon: '🔐',
     accent: '#ec4899',
     items: [
-      { name: 'Firebase Auth', pct: 85 },
-      { name: 'JWT', pct: 75 },
-      { name: 'Argon2', pct: 70 },
+      { name: 'Firebase Auth', pct: 90 },
+      { name: 'JWT', pct: 85 },
+      { name: 'Argon2', pct: 80 },
     ],
   },
   {
@@ -67,9 +67,9 @@ const categories = [
     icon: '✦',
     accent: '#14b8a6',
     items: [
-      { name: 'Gemini API', pct: 82 },
-      { name: 'Prompt Engineering', pct: 80 },
-      { name: 'LLM Integration', pct: 78 },
+      { name: 'Gemini API', pct: 90 },
+      { name: 'Prompt Engineering', pct: 85 },
+      { name: 'LLM Integration', pct: 80 },
     ],
   },
   {
@@ -78,8 +78,8 @@ const categories = [
     icon: '☁',
     accent: '#3b82f6',
     items: [
-      { name: 'Vercel', pct: 85 },
-      { name: 'Render', pct: 82 },
+      { name: 'Vercel', pct: 90 },
+      { name: 'Render', pct: 85 },
       { name: 'Cloudinary', pct: 80 },
     ],
   },
@@ -89,11 +89,11 @@ const categories = [
     icon: '⚒',
     accent: '#f59e0b',
     items: [
-      { name: 'VS Code', pct: 95 },
-      { name: 'Postman', pct: 90 },
-      { name: 'Antigravity', pct: 85 },
-      { name: 'Git & GitHub', pct: 78 },
-      { name: 'Android Studio', pct: 72 },
+      { name: 'Git & GitHub', pct: 90 },
+      { name: 'Postman', pct: 85 },
+      { name: 'Android Studio', pct: 80 },
+      { name: 'VS Code', pct: 75 },
+      { name: 'Antigravity', pct: 70 },
     ],
   },
 ];
