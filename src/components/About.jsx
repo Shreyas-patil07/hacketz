@@ -94,68 +94,7 @@ const About = () => {
             {/* Ambient glow behind photo */}
             <div style={{ position: 'absolute', inset: '0', background: 'radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%)', filter: 'blur(40px)', zIndex: 0 }} />
             
-            <div style={{ perspective: '1200px', zIndex: 1, position: 'relative' }}>
-              <style>{`
-                .photo-wrapper {
-                  width: 100%;
-                  max-width: 360px;
-                  margin: 0 auto;
-                  aspect-ratio: 1 / 1;
-                  position: relative;
-                  transform-style: preserve-3d;
-                  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-                  cursor: pointer;
-                  border-radius: 32px;
-                }
-                .photo-wrapper.is-flipped {
-                  transform: rotateY(180deg);
-                }
-                .photo-wrapper:not(.is-flipped):hover {
-                  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
-                }
-                @keyframes shake {
-                  10%, 90% { transform: rotateZ(-1deg); }
-                  20%, 80% { transform: rotateZ(1.5deg); }
-                  30%, 50%, 70% { transform: rotateZ(-2deg); }
-                  40%, 60% { transform: rotateZ(2deg); }
-                  100% { transform: rotateZ(0deg); }
-                }
-                .photo-face {
-                  position: absolute;
-                  inset: 0;
-                  backface-visibility: hidden;
-                  -webkit-backface-visibility: hidden;
-                  border-radius: 32px;
-                  overflow: hidden;
-                  border: 1px solid rgba(255,255,255,0.08);
-                  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(124,58,237,0.15);
-                  background: #0d1117;
-                }
-                .photo-face img {
-                  width: 100%;
-                  height: 100%;
-                  object-fit: cover;
-                  display: block;
-                  opacity: 0.95;
-                  transition: opacity 0.3s;
-                }
-                .photo-wrapper:hover .photo-face img {
-                  opacity: 1;
-                }
-                .photo-face-back {
-                  transform: rotateY(180deg);
-                  border-color: rgba(210,187,255,0.3);
-                }
-                .photo-hint {
-                  text-align: center;
-                  font-family: 'JetBrains Mono', monospace;
-                  font-size: 11px;
-                  color: #6b7280;
-                  letter-spacing: 0.08em;
-                  margin-top: 16px;
-                }
-              `}</style>
-
+          <div style={{ perspective: '1200px', zIndex: 1, position: 'relative' }}>
               <div
                 className={`photo-wrapper ${flipped ? 'is-flipped' : ''}`}
                 onClick={() => setFlipped(f => !f)}
