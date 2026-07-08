@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const categories = [
   {
@@ -6,6 +6,7 @@ const categories = [
     title: 'Languages',
     icon: '{ }',
     accent: '#7c3aed',
+    spanClasses: 'bento-col-span-2 bento-row-span-2',
     items: [
       { name: 'Python', pct: 90 },
       { name: 'Dart', pct: 80 },
@@ -20,6 +21,7 @@ const categories = [
     title: 'Frontend',
     icon: '◆',
     accent: '#6366f1',
+    spanClasses: 'bento-col-span-2',
     items: [
       { name: 'React', pct: 90 },
       { name: 'Vite', pct: 85 },
@@ -31,6 +33,7 @@ const categories = [
     title: 'Backend',
     icon: '⚙',
     accent: '#8b5cf6',
+    spanClasses: 'bento-col-span-1',
     items: [
       { name: 'FastAPI', pct: 90 },
       { name: 'Flask', pct: 85 },
@@ -42,6 +45,7 @@ const categories = [
     title: 'Database',
     icon: '◎',
     accent: '#a855f7',
+    spanClasses: 'bento-col-span-1',
     items: [
       { name: 'Firebase Firestore', pct: 90 },
       { name: 'Supabase', pct: 85 },
@@ -55,6 +59,7 @@ const categories = [
     title: 'Auth & Security',
     icon: '🔐',
     accent: '#ec4899',
+    spanClasses: 'bento-col-span-2',
     items: [
       { name: 'Firebase Auth', pct: 90 },
       { name: 'JWT', pct: 85 },
@@ -66,6 +71,7 @@ const categories = [
     title: 'AI Technology',
     icon: '✦',
     accent: '#14b8a6',
+    spanClasses: 'bento-col-span-2',
     items: [
       { name: 'Gemini API', pct: 90 },
       { name: 'Prompt Engineering', pct: 85 },
@@ -77,6 +83,7 @@ const categories = [
     title: 'Cloud & Deploy',
     icon: '☁',
     accent: '#3b82f6',
+    spanClasses: 'bento-col-span-2',
     items: [
       { name: 'Vercel', pct: 90 },
       { name: 'Render', pct: 85 },
@@ -88,6 +95,7 @@ const categories = [
     title: 'Tools',
     icon: '⚒',
     accent: '#f59e0b',
+    spanClasses: 'bento-col-span-2',
     items: [
       { name: 'Git & GitHub', pct: 90 },
       { name: 'Postman', pct: 85 },
@@ -98,60 +106,19 @@ const categories = [
   },
 ];
 
-const ProgressBar = ({ name, pct, accent, delay, isVisible }) => {
-  return (
-    <div style={{ marginBottom: '14px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-        <span style={{
-          fontFamily: "'JetBrains Mono', monospace",
-          fontSize: '12.5px',
-          color: '#c3c6d3',
-          letterSpacing: '0.02em',
-        }}>
-          {name}
-        </span>
-        <span style={{
-          fontFamily: "'JetBrains Mono', monospace",
-          fontSize: '11px',
-          color: accent,
-          fontWeight: 600,
-          opacity: 0.9,
-        }}>
-          {pct}%
-        </span>
-      </div>
-      <div style={{
-        width: '100%',
-        height: '6px',
-        borderRadius: '100px',
-        background: 'rgba(255,255,255,0.04)',
-        overflow: 'hidden',
-        position: 'relative',
-      }}>
-        <div style={{
-          width: isVisible ? `${pct}%` : '0%',
-          height: '100%',
-          borderRadius: '100px',
-          background: `linear-gradient(90deg, ${accent}, ${accent}cc)`,
-          boxShadow: isVisible ? `0 0 12px ${accent}40` : 'none',
-          transition: `width 1.2s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
-        }} />
-      </div>
-    </div>
-  );
-};
-
 const Skills = () => {
   const sectionRef = useRef(null);
-  const [activeTab, setActiveTab] = useState('languages');
-  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => entries.forEach(e => {
-        if (e.isIntersecting) {
+        if (e.isIntersecting && !e.target.classList.contains('v')) {
           e.target.classList.add('v');
-          setIsVisible(true);
+          // Trigger progress bar animations within this card
+          const bars = e.target.querySelectorAll('.bento-progress-fill');
+          bars.forEach(bar => {
+            bar.style.width = bar.dataset.width;
+          });
         }
       }),
       { threshold: 0.1 }
@@ -164,14 +131,21 @@ const Skills = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Reset animation on tab change
+  // Hover effect for mouse tracking
   useEffect(() => {
-    setIsVisible(false);
-    const t = setTimeout(() => setIsVisible(true), 50);
-    return () => clearTimeout(t);
-  }, [activeTab]);
+    const handleMouseMove = e => {
+      for(const card of document.querySelectorAll('.bento-card')) {
+        const rect = card.getBoundingClientRect(),
+              x = e.clientX - rect.left,
+              y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      }
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
-  const activeCat = categories.find(c => c.id === activeTab);
   const totalSkills = categories.reduce((sum, c) => sum + c.items.length, 0);
   const avgProficiency = Math.round(
     categories.reduce((sum, c) => sum + c.items.reduce((s, i) => s + i.pct, 0), 0) /
@@ -225,123 +199,24 @@ const Skills = () => {
           ))}
         </div>
 
-        {/* Main content grid */}
-        <div className="reveal-left" style={{
-          display: 'grid',
-          gridTemplateColumns: '260px 1fr',
-          gap: '0',
-          borderRadius: '20px',
-          overflow: 'hidden',
-          border: '1px solid rgba(255,255,255,0.06)',
-          background: 'rgba(13,17,23,0.5)',
-          minHeight: '480px',
-        }}>
-          {/* Left sidebar — Tabs */}
-          <div style={{
-            borderRight: '1px solid rgba(255,255,255,0.05)',
-            padding: '8px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '2px',
-            background: 'rgba(13,17,23,0.4)',
-          }}>
-            {categories.map(cat => {
-              const isActive = activeTab === cat.id;
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => setActiveTab(cat.id)}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px',
-                    padding: '14px 16px',
-                    borderRadius: '12px',
-                    border: 'none',
-                    background: isActive
-                      ? `linear-gradient(135deg, ${cat.accent}18, ${cat.accent}08)`
-                      : 'transparent',
-                    cursor: 'pointer',
-                    transition: 'all 0.25s ease',
-                    position: 'relative',
-                    overflow: 'hidden',
-                  }}
-                >
-                  {/* Active indicator bar */}
-                  {isActive && (
-                    <div style={{
-                      position: 'absolute',
-                      left: 0,
-                      top: '20%',
-                      bottom: '20%',
-                      width: '3px',
-                      borderRadius: '0 4px 4px 0',
-                      background: cat.accent,
-                      boxShadow: `0 0 10px ${cat.accent}60`,
-                    }} />
-                  )}
-                  <span style={{
-                    fontSize: '14px',
-                    lineHeight: 1,
-                    width: '24px',
-                    textAlign: 'center',
-                    filter: isActive ? 'none' : 'grayscale(60%)',
-                    opacity: isActive ? 1 : 0.5,
-                    transition: 'all 0.25s',
-                  }}>
-                    {cat.icon}
-                  </span>
-                  <div style={{ textAlign: 'left' }}>
-                    <div style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
-                      fontSize: '13px',
-                      fontWeight: isActive ? 700 : 500,
-                      color: isActive ? '#e0e2e6' : '#6b7280',
-                      transition: 'color 0.25s',
-                      letterSpacing: '-0.01em',
-                    }}>
-                      {cat.title}
-                    </div>
-                    <div style={{
-                      fontFamily: "'JetBrains Mono', monospace",
-                      fontSize: '10px',
-                      color: isActive ? cat.accent : '#4b5563',
-                      transition: 'color 0.25s',
-                      marginTop: '2px',
-                    }}>
-                      {cat.items.length} {cat.items.length === 1 ? 'skill' : 'skills'}
-                    </div>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Right panel — Skills */}
-          <div style={{ padding: '36px 40px', position: 'relative' }}>
-            {/* Category heading */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '14px',
-              marginBottom: '32px',
-              paddingBottom: '20px',
-              borderBottom: '1px solid rgba(255,255,255,0.04)',
-            }}>
-              <div style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '12px',
-                background: `${activeCat.accent}15`,
-                border: `1px solid ${activeCat.accent}30`,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '18px',
-              }}>
-                {activeCat.icon}
-              </div>
-              <div>
+        {/* Bento Grid */}
+        <div className="bento-grid">
+          {categories.map((cat, i) => (
+            <div key={cat.id} className={`bento-card reveal-left ${cat.spanClasses}`}>
+              
+              {/* Category Header */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+                <div style={{
+                  width: '36px', height: '36px',
+                  borderRadius: '10px',
+                  background: `${cat.accent}15`,
+                  border: `1px solid ${cat.accent}30`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '16px',
+                  flexShrink: 0
+                }}>
+                  {cat.icon}
+                </div>
                 <h3 style={{
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontSize: '1.25rem',
@@ -349,57 +224,55 @@ const Skills = () => {
                   color: '#e0e2e6',
                   letterSpacing: '-0.02em',
                 }}>
-                  {activeCat.title}
+                  {cat.title}
                 </h3>
-                <span style={{
-                  fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: '11px',
-                  color: '#6b7280',
-                }}>
-                  {activeCat.items.length} technologies
-                </span>
               </div>
-            </div>
 
-            {/* Progress bars */}
-            <div>
-              {activeCat.items.map((item, i) => (
-                <ProgressBar
-                  key={`${activeCat.id}-${item.name}`}
-                  name={item.name}
-                  pct={item.pct}
-                  accent={activeCat.accent}
-                  delay={i * 0.08}
-                  isVisible={isVisible}
-                />
-              ))}
-            </div>
+              {/* Skills List */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', flex: 1, justifyContent: 'center' }}>
+                {cat.items.map((item, j) => (
+                  <div key={item.name}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '12px', color: '#c3c6d3' }}>
+                        {item.name}
+                      </span>
+                      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', color: cat.accent, fontWeight: 600 }}>
+                        {item.pct}%
+                      </span>
+                    </div>
+                    <div className="bento-progress-track">
+                      <div 
+                        className="bento-progress-fill"
+                        data-width={`${item.pct}%`}
+                        style={{ 
+                          width: '0%', 
+                          background: `linear-gradient(90deg, ${cat.accent}, ${cat.accent}cc)`,
+                          boxShadow: `0 0 10px ${cat.accent}50`,
+                          transitionDelay: `${j * 0.1}s`
+                        }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-            {/* Ambient glow */}
-            <div style={{
-              position: 'absolute',
-              top: '50%',
-              right: '-100px',
-              width: '300px',
-              height: '300px',
-              borderRadius: '50%',
-              background: `radial-gradient(circle, ${activeCat.accent}08 0%, transparent 70%)`,
-              pointerEvents: 'none',
-              transform: 'translateY(-50%)',
-              transition: 'background 0.5s ease',
-            }} />
-          </div>
+              {/* Accent Glow Blob */}
+              <div style={{
+                position: 'absolute',
+                bottom: '-50px',
+                right: '-50px',
+                width: '150px',
+                height: '150px',
+                background: `radial-gradient(circle, ${cat.accent}15 0%, transparent 70%)`,
+                borderRadius: '50%',
+                pointerEvents: 'none',
+                zIndex: 0
+              }} />
+
+            </div>
+          ))}
         </div>
 
-        {/* Mobile-only: full list fallback */}
-        <style>{`
-          @media (max-width: 768px) {
-            .skills-desktop { display: none !important; }
-          }
-          @media (min-width: 769px) {
-            .skills-mobile { display: none !important; }
-          }
-        `}</style>
       </div>
     </section>
   );

@@ -590,31 +590,75 @@
     gap: 20px;
   }
 
-  /* -------- SKILL CARD -------- */
-  .skill-card {
-    background: rgba(13,17,23,0.6);
+  /* -------- BENTO GRID -------- */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(180px, auto);
+    gap: 20px;
+    width: 100%;
+  }
+
+  .bento-card {
+    background: rgba(13,17,23,0.5);
     border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 16px;
-    padding: 28px;
-    transition: border-color 0.3s, background 0.3s, transform 0.3s;
+    border-radius: 24px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .bento-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 24px;
+    background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.06), transparent 40%);
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .bento-card:hover::before {
+    opacity: 1;
+  }
+
+  .bento-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,0.15);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  }
+
+  .bento-col-span-2 {
+    grid-column: span 2;
+  }
+
+  .bento-row-span-2 {
+    grid-row: span 2;
+  }
+
+  .bento-col-span-1 {
+    grid-column: span 1;
+  }
+
+  /* Compact progress bar inside bento */
+  .bento-progress-track {
+    width: 100%;
+    height: 4px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.06);
     position: relative;
     overflow: hidden;
   }
-  .skill-card::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 3px;
-    background: linear-gradient(to right, #7c3aed, #d2bbff);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.35s ease;
-  }
-  .skill-card:hover::after { transform: scaleX(1); }
-  .skill-card:hover {
-    border-color: rgba(124,58,237,0.25);
-    background: rgba(13,17,23,0.9);
-    transform: translateY(-3px);
+  
+  .bento-progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   /* -------- TIMELINE -------- */
@@ -690,9 +734,15 @@
     .inner { padding: 0 18px; }
     section { padding: 70px 0; }
 
-    /* Skills grid becomes stacked on mobile */
-    #skills .reveal-left > div:first-child {
-      grid-template-columns: 1fr !important;
+    /* Bento grid becomes single column on mobile */
+    .bento-grid {
+      grid-template-columns: 1fr;
+    }
+    .bento-col-span-2 {
+      grid-column: span 1;
+    }
+    .bento-row-span-2 {
+      grid-row: span 1;
     }
     .project-card { grid-template-columns: 1fr; }
     .project-code-pane { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 24px !important; }
