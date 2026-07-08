@@ -273,17 +273,17 @@ function App() {
           title={isMuted ? 'Unmute music' : 'Mute music'}
           style={{
             position: 'fixed',
-            bottom: '24px',
-            right: '24px',
+            bottom: '32px',
+            right: '32px',
             zIndex: 99990,
-            width: '44px',
-            height: '44px',
+            width: '56px',
+            height: '56px',
             borderRadius: '50%',
-            background: 'rgba(13,17,23,0.75)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+            background: 'rgba(13,17,23,0.4)',
+            border: '1px solid rgba(255,255,255,0.05)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -291,26 +291,26 @@ function App() {
             transition: 'border-color 0.2s, box-shadow 0.2s, transform 0.2s',
           }}
           onMouseEnter={e => {
-            e.currentTarget.style.borderColor = 'rgba(124,58,237,0.6)';
-            e.currentTarget.style.boxShadow = '0 0 20px rgba(124,58,237,0.35)';
+            e.currentTarget.style.borderColor = 'rgba(124,58,237,0.4)';
+            e.currentTarget.style.boxShadow = '0 0 20px rgba(124,58,237,0.25)';
             e.currentTarget.style.transform = 'scale(1.1)';
           }}
           onMouseLeave={e => {
-            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
-            e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.4)';
+            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)';
+            e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.2)';
             e.currentTarget.style.transform = 'scale(1)';
           }}
         >
           {isMuted ? (
             // Muted icon (speaker with X)
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
               <line x1="23" y1="9" x2="17" y2="15" />
               <line x1="17" y1="9" x2="23" y2="15" />
             </svg>
           ) : (
             // Unmuted icon (speaker with waves)
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d2bbff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d2bbff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
               <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
               <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
