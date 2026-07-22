@@ -20,7 +20,7 @@ const Footer = () => {
 
   return (
     <footer ref={footerRef} style={{ padding: '40px 0', position: 'relative', background: 'rgba(7,11,20,0.6)', overflow: 'hidden' }}>
-      <div className="inner" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="inner" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
         
         {/* Left Side Container */}
         <div style={{ display: 'flex', alignItems: 'center', height: '40px', position: 'relative' }}>

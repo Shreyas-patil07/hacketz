@@ -153,7 +153,7 @@ const Skills = () => {
   );
 
   return (
-    <section id="skills" ref={sectionRef}>
+    <section id="skills" ref={sectionRef} style={{ position: 'relative', overflow: 'hidden' }}>
       <div className="inner">
         {/* Header */}
         <div className="reveal" style={{ marginBottom: '56px' }}>

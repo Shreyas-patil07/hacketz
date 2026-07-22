@@ -27,7 +27,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" ref={sectionRef} style={{ padding: '160px 0 60px 0', position: 'relative' }}>
+    <section id="contact" ref={sectionRef} style={{ padding: '160px 0 60px 0', position: 'relative', overflow: 'hidden' }}>
       <div className="inner" style={{ maxWidth: '1100px', margin: '0 auto' }}>
 
         {/* The Ultimate Premium Contact Card */}
@@ -68,7 +68,7 @@ const Contact = () => {
           {/* Massive Headline */}
           <h2 className="contact-headline" style={{
             fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: 'clamp(3.5rem, 8vw, 6.5rem)',
+            fontSize: 'clamp(2.4rem, 8vw, 6.5rem)',
             fontWeight: 800,
             lineHeight: 1,
             letterSpacing: '-0.04em',

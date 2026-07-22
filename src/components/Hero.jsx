@@ -58,7 +58,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id="hero" ref={heroRef} style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', paddingTop: '110px', position: 'relative', overflow: 'hidden' }}>
+    <section id="hero" ref={heroRef} style={{ minHeight: '100svh', display: 'flex', alignItems: 'center', paddingTop: 'clamp(72px, 15vw, 110px)', paddingBottom: 'clamp(32px, 8vw, 64px)', position: 'relative', overflow: 'hidden' }}>
       {/* Ambient glows */}
       <div style={{ position: 'absolute', width: '700px', height: '700px', top: '-200px', right: '-200px', background: 'radial-gradient(circle, rgba(124,58,237,0.09) 0%, transparent 65%)', borderRadius: '50%', pointerEvents: 'none' }} />
       <div style={{ position: 'absolute', width: '500px', height: '500px', bottom: '-100px', left: '-150px', background: 'radial-gradient(circle, rgba(124,58,237,0.06) 0%, transparent 70%)', borderRadius: '50%', pointerEvents: 'none' }} />
@@ -82,7 +82,7 @@ const Hero = () => {
                 I'm Shreyas.
               </span>
               {/* Typewriter line */}
-              <span className="reveal" style={{ fontSize: 'clamp(1.2rem, 2.4vw, 1.85rem)', fontWeight: 600, color: '#9CA3AF', lineHeight: 1.3, minHeight: '2.5rem', transitionDelay: '0.18s' }}>
+              <span className="reveal" style={{ fontSize: 'clamp(1rem, 4vw, 1.85rem)', fontWeight: 600, color: '#9CA3AF', lineHeight: 1.3, minHeight: '2em', transitionDelay: '0.18s' }}>
                 {typed}<span className="type-cursor" />
               </span>
             </h1>
@@ -146,7 +146,7 @@ const Hero = () => {
                 </span>
               </div>
 
-              <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '13.5px', lineHeight: 2, overflowX: 'auto' }}>
+              <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 'clamp(10px, 2.8vw, 13.5px)', lineHeight: 1.9, overflowX: 'auto' }}>
                 <code>
                   <span className="sh-p">const</span>{' '}
                   <span style={{ color: '#e0e2e6', fontWeight: 600 }}>shreyas</span>{' '}

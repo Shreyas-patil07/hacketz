@@ -55,7 +55,7 @@ const Projects = () => {
   }, []);
 
   return (
-    <section id="work" ref={sectionRef} style={{ position: 'relative' }}>
+    <section id="work" ref={sectionRef} style={{ position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', width: '900px', height: '900px', top: '-350px', right: '-400px', background: 'radial-gradient(circle, rgba(124,58,237,0.05) 0%, transparent 65%)', borderRadius: '50%', pointerEvents: 'none' }} />
 
       <div className="inner">
@@ -82,7 +82,7 @@ const Projects = () => {
                       <div key={j} style={{ width: '10px', height: '10px', borderRadius: '50%', background: c, opacity: 0.7 }} />
                     ))}
                   </div>
-                  <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '14px', lineHeight: 2.2, overflowX: 'auto' }}>
+                  <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 'clamp(11px, 3vw, 14px)', lineHeight: 2, overflowX: 'auto' }}>
                     <code>
                       <span className="sh-p">const</span>{' '}
                       <span style={{ color: '#e0e2e6', fontWeight: 600 }}>{project.varName}</span>{' '}
@@ -107,7 +107,7 @@ const Projects = () => {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '24px' }}>
                   
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                    <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '2.2rem', fontWeight: 800, letterSpacing: '-0.025em', color: '#fff' }}>
+                    <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 'clamp(1.5rem, 5vw, 2.2rem)', fontWeight: 800, letterSpacing: '-0.025em', color: '#fff' }}>
                       {project.title}
                     </h3>
                     

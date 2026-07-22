@@ -44,7 +44,7 @@ const About = () => {
   ];
 
   return (
-    <section id="about" ref={sectionRef}>
+    <section id="about" ref={sectionRef} style={{ position: 'relative', overflow: 'hidden' }}>
       <div className="inner">
         <div className="reveal" style={{ marginBottom: '72px' }}>
           <span className="ey">01 — About</span>
@@ -76,7 +76,7 @@ const About = () => {
                 ))}
                 <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: '#4b5563', marginLeft: 'auto' }}>profile.json</span>
               </div>
-              <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '13px', lineHeight: 2, overflowX: 'auto' }}>
+              <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 'clamp(11px, 2.8vw, 13px)', lineHeight: 1.9, overflowX: 'auto' }}>
                 <code>
                   <span className="sh-p">{'{'}</span>{'\n'}
                   {'  '}<span className="sh-str">"role"</span><span className="sh-p">:</span>{'     '}<span className="sh-s2">"Backend Engineer"</span><span className="sh-p">,</span>{'\n'}
@@ -123,7 +123,7 @@ const About = () => {
                 data-target={stat.value}
                 style={{
                   fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: '4rem',
+                  fontSize: 'clamp(2.8rem, 9vw, 4rem)',
                   fontWeight: 800,
                   color: '#e0e2e6',
                   lineHeight: 1,

@@ -21,6 +21,7 @@
   html { 
     scroll-behavior: smooth; 
     scrollbar-width: none;
+    overflow-x: hidden;
   }
 
   ::-webkit-scrollbar {
@@ -419,8 +420,6 @@
     animation: impatientJiggle 2.5s infinite;
     transform-origin: bottom center;
     will-change: transform;
-    /* Isolated from the parent's translate3d via its own compositing layer */
-    contain: layout style;
   }
   @keyframes impatientJiggle {
     0%, 75%, 100% { transform: translateY(0) rotate(0deg); }
@@ -720,35 +719,132 @@
   }
 
   /* -------- MOBILE -------- */
-  @media(max-width: 768px) {
-    .inner { padding: 0 18px; }
-    section { padding: 70px 0; }
+  @media(max-width: 900px) {
+    .inner { padding: 0 16px; }
+    section { padding: 72px 0 56px 0; }
 
-    /* Bento grid columns for mobile */
-    .bento-grid {
-      column-count: 1;
+    /* Disable the continuous float animation on mobile — saves GPU compositing */
+    .float { animation: none !important; }
+
+    /* Reduce backdrop-filter cost: 16px blur is ~4x cheaper than 40px */
+    [style*="blur(40px)"] { backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important; }
+
+    /* Hide custom cursor elements on mobile (no mouse) */
+    #cursor, #cursor-ring { display: none !important; }
+
+    /* ---- BENTO GRID ---- */
+    .bento-grid { column-count: 1; }
+    .bento-card { padding: 22px; margin-bottom: 16px; }
+
+    /* ---- PROJECT CARDS ---- */
+    .project-card { grid-template-columns: 1fr; min-height: auto; }
+    .project-code-pane {
+      border-right: none;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 20px !important;
     }
-    .project-card { grid-template-columns: 1fr; }
-    .project-code-pane { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 24px !important; }
-    .project-info-pane { padding: 32px 24px !important; }
-    
-    .responsive-grid-hero, .responsive-grid-about {
-      grid-template-columns: 1fr;
-      gap: 40px;
-    }
+    .project-info-pane { padding: 24px 20px !important; gap: 14px !important; }
+
+    /* ---- GRIDS ---- */
+    .responsive-grid-hero { grid-template-columns: 1fr; gap: 32px; }
+    .responsive-grid-about { grid-template-columns: 1fr; gap: 36px; margin-bottom: 40px; }
     
     .stats-grid {
       grid-template-columns: repeat(2, 1fr);
-      gap: 32px 16px;
+      gap: 24px 12px;
+      padding-top: 36px;
     }
     
+    /* ---- CONTACT ---- */
     .contact-card-mobile {
-      padding: 60px 24px 40px 24px !important;
+      padding: 48px 20px 36px 20px !important;
+      border-radius: 24px !important;
     }
 
-    .sh2 {
-      font-size: clamp(2.2rem, 10vw, 3rem);
+    /* ---- TYPOGRAPHY ---- */
+    .sh2 { font-size: clamp(2rem, 9vw, 2.8rem); }
+    
+    /* ---- NAV (hide side dots on mobile, show bottom bar) ---- */
+    .nav-container { display: none !important; }
+    
+    /* ---- MUTE BUTTON (sit above bottom nav bar) ---- */
+    .mobile-mute-btn {
+      bottom: 88px !important;
+      right: 16px !important;
+      width: 44px !important;
+      height: 44px !important;
     }
+  }
+
+  /* Extra small screens */
+  @media(max-width: 400px) {
+    .inner { padding: 0 12px; }
+    .bento-card { padding: 18px; }
+    .project-info-pane { padding: 20px 16px !important; }
+    .contact-card-mobile { padding: 40px 16px 28px 16px !important; }
+  }
+
+  /* ---- MOBILE BOTTOM NAV ---- */
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    background: rgba(7,11,20,0.85);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 10px 8px calc(10px + env(safe-area-inset-bottom));
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .mobile-nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 10px;
+    transition: background 0.2s;
+    min-width: 44px;
+    color: #6b7280;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .mobile-nav-btn.active {
+    color: #d2bbff;
+    background: rgba(124,58,237,0.12);
+  }
+
+  .mobile-nav-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  .mobile-nav-btn.active .mobile-nav-dot {
+    transform: scale(1.6);
+    background: #d2bbff;
+    box-shadow: 0 0 8px rgba(210,187,255,0.6);
+  }
+
+  @media(max-width: 900px) {
+    .mobile-nav { display: flex; }
+    /* Add bottom padding to last section so content isn't hidden behind nav */
+    section:last-of-type { padding-bottom: 100px; }
+    footer { padding-bottom: calc(72px + env(safe-area-inset-bottom)) !important; }
   }
 
   /* -------- ABOUT PHOTO CARD (extracted from inline style) -------- */
@@ -810,5 +906,11 @@
     color: #6b7280;
     letter-spacing: 0.08em;
     margin-top: 16px;
+  }
+
+  /* ── Accessibility: respect OS-level reduced motion preference ─────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .float, .impatient-peeker { animation: none !important; }
+    .reveal, .reveal-left, .reveal-right { opacity: 1 !important; transform: none !important; }
   }
 }

@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import Backgrounds from './components/Backgrounds';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import About from './components/About';
-import Projects from './components/Projects';
-import Skills from './components/Skills';
-import DexTeaser from './components/DexTeaser';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import TerminalEasterEgg from './components/TerminalEasterEgg';
 import Peeker from './components/Peeker';
 import bgMusic from './assets/bg_music_trimmed.mp3';
 import mascot from './assets/Github_01.png';
+
+// Lazy-load everything below the fold — defers JS parse until needed
+const About          = lazy(() => import('./components/About'));
+const Projects       = lazy(() => import('./components/Projects'));
+const Skills         = lazy(() => import('./components/Skills'));
+const DexTeaser      = lazy(() => import('./components/DexTeaser'));
+const Contact        = lazy(() => import('./components/Contact'));
+const Footer         = lazy(() => import('./components/Footer'));
+const TerminalEasterEgg = lazy(() => import('./components/TerminalEasterEgg'));
 
 function App() {
   const [hasEntered, setHasEntered] = useState(false);
@@ -22,6 +24,10 @@ function App() {
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursor-ring');
     const sb = document.getElementById('sb');
+
+    // Skip cursor entirely on touch / mobile — no mouse cursor present
+    const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    if (isTouch) return;
 
     let mouseX = window.innerWidth / 2;
     let mouseY = window.innerHeight / 2;
@@ -224,7 +230,9 @@ function App() {
           bottom: 0, 
           left: '50%', 
           zIndex: 100001,
-          transform: `translate3d(-50%, ${hasEntered ? '100%' : '25%'}, 0)`, 
+          transform: hasEntered
+            ? 'translate(-50%, 110%)'
+            : 'translate(-50%, 0)',
           transition: 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)',
           willChange: 'transform',
           cursor: hasEntered ? 'default' : 'pointer',
@@ -236,9 +244,8 @@ function App() {
             src={mascot} 
             alt="Click to enter" 
             style={{ 
-              height: '35vh', 
-              maxHeight: '350px',
-              minHeight: '200px',
+              height: 'clamp(180px, 32vh, 380px)',
+              display: 'block',
               filter: 'drop-shadow(0 -10px 25px rgba(124,58,237,0.5))',
               transformOrigin: 'bottom center',
               transition: 'transform 0.3s ease',
@@ -257,18 +264,21 @@ function App() {
       <Backgrounds />
       <Navbar />
       <Hero />
-      <About />
-      <Projects />
-      <Skills />
-      <DexTeaser />
-      <Contact />
-      <Footer />
-      <TerminalEasterEgg />
+      <Suspense fallback={null}>
+        <About />
+        <Projects />
+        <Skills />
+        <DexTeaser />
+        <Contact />
+        <Footer />
+        <TerminalEasterEgg />
+      </Suspense>
       <Peeker />
 
       {/* Mute / Unmute Button */}
       {hasEntered && (
         <button
+          className="mobile-mute-btn"
           onClick={() => setIsMuted(m => !m)}
           title={isMuted ? 'Unmute music' : 'Mute music'}
           style={{

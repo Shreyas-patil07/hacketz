@@ -62,7 +62,7 @@ const DexTeaser = () => {
             ))}
             <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: '#4b5563', marginLeft: 'auto' }}>dex/core/user.ts</span>
           </div>
-          <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '13px', lineHeight: 2, overflowX: 'auto' }}>
+          <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 'clamp(10px, 2.8vw, 13px)', lineHeight: 1.9, overflowX: 'auto' }}>
             <code>
               <span className="sh-c">// Core feature — Dex profile engine</span>{'\n'}
               <span className="sh-p">class</span>{' '}
